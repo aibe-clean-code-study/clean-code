@@ -5,7 +5,14 @@ import java.util.Deque;
 
 // 다리를 지나는 트럭 (큐 이용) 문제
 public class Before {
-    public int solution(int bridge_length, int weight, int[] truck_weights) {
+    public static void main(String[] args) {
+        //test code
+        System.out.println(solution(2, 10, new int[]{7,4,5,6}));
+        System.out.println(solution(100, 100, new int[]{10}));
+        System.out.println(solution(100, 100, new int[]{10,10,10,10,10,10,10,10,10,10}));
+    }
+
+    public static int solution(int bridge_length, int weight, int[] truck_weights) {
 
         Deque<Integer> queue = new ArrayDeque<>(); // 큐가 다리 역할
 

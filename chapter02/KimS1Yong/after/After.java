@@ -18,7 +18,7 @@ public class After {
         Deque<Integer> bridge = new ArrayDeque<>();
 
         final int EMPTY_SPACE = 0;
-        for (int i=0; i<bridge_length-1; i++) {
+        for (int i=0; i<bridge_length-1; i++) { //다리 길이 만큼 공간 채워두기
             bridge.offer(EMPTY_SPACE);
         }
 
