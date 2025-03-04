@@ -1,10 +1,6 @@
-package after.llm;
+package soheeGit.after.llm;
 
 import after.webClient.WebClientImpl;
-
-import java.net.http.HttpClient;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class LLMImpl extends WebClientImpl implements LLM {
 
