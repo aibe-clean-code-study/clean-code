@@ -1,4 +1,4 @@
-public class Main {
+public class before {
     public static void main(String[] args) {
         boolean[] isSelfNumber = new boolean[10001];
         for (int i = 1; i <= 10000; i++) {

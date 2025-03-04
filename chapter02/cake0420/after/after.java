@@ -1,4 +1,4 @@
-public class Main {
+public class after {
     public static void main(String[] args) {
         int MAX_ARRAY_SIZE = 10001;
         boolean[] isSelfNumber = new boolean[MAX_ARRAY_SIZE];
