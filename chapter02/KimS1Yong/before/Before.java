@@ -24,7 +24,7 @@ public class Before {
         int currentW=truck_weights[0]; // 현재 다리의 무게
         queue.offer(currentW);
 
-        int time=1; // 시간
+        int time=1; // 시간 (정답)
         int idx=1; // 트럭의 index
 
         while (!queue.isEmpty()) {
