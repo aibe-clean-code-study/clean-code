@@ -2,17 +2,17 @@ public class after {
     public static void main(String[] args) {
         int MAX_ARRAY_SIZE = 10001;
         boolean[] isSelfNumber = new boolean[MAX_ARRAY_SIZE];
-        for (int INDEX = 1; INDEX <= MAX_ARRAY_SIZE - 1; INDEX++) {
-            int next = getNext(INDEX);
+        for (int index = 1; index <= MAX_ARRAY_SIZE - 1; index++) {
+            int next = getNext(index);
             while (next <= MAX_ARRAY_SIZE && !isSelfNumber[next]) {
                 isSelfNumber[next] = true;
                 next = getNext(next);
             }
         }
 
-        for (int INDEX = 1; INDEX <= MAX_ARRAY_SIZE - 1; INDEX++) {
-            if (!isSelfNumber[INDEX]) {
-                System.out.println(INDEX);
+        for (int index = 1; index <= MAX_ARRAY_SIZE - 1; index++) {
+            if (!isSelfNumber[index]) {
+                System.out.println(index);
             }
         }
     }
