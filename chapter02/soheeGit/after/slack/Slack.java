@@ -1,4 +1,4 @@
-package after.slack;
+package soheeGit.after.slack;
 
 import after.webClient.WebClientImpl;
 
