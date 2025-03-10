@@ -24,37 +24,39 @@ public class JsonExtractorImpl implements JsonExtractor {
         return text;
     }
 
-    public String extractTextFromWeatherResponse(String WeatherResponseBody) {
-        StringBuilder weatherInfo = new StringBuilder();
-
+    public String extractTextFromWeatherResponse(String weatherResponseBody) {
         try {
-            JSONObject responseJson = new JSONObject(WeatherResponseBody);
-            JSONObject body = responseJson.getJSONObject("response").getJSONObject("body");
-            JSONArray items = body.getJSONObject("items").getJSONArray("item");
-
-            weatherInfo.append("날씨 정보:\n");
-
-            for (int i = 0; i < items.length(); i++) {
-                JSONObject item = items.getJSONObject(i);
-                String category = item.getString("category");
-                String obsrValue = item.getString("obsrValue");
-
-                String categoryName = getCategoryName(category);
-
-                weatherInfo.append(categoryName).append(": ").append(obsrValue);
-
-                if(category.equals("VEC")){
-                    weatherInfo.append("도");
-                } else if (!category.equals("PTY") && !category.equals("RN1") && !category.equals("VEC")){
-                    weatherInfo.append(getUnit(category));
-                }
-
-                weatherInfo.append("\n");
-            }
-
-
+            JSONArray items = extractWeatherItems(weatherResponseBody);
+            return formatWeatherData(items);
         } catch (JSONException e) {
-            logger.log(Level.SEVERE, "Error extracting weather from weather api response. Response body: " + weatherInfo, e);
+            logger.log(Level.SEVERE, "Error extracting weather data from response: " + weatherResponseBody, e);
+            return "날씨 정보를 불러오는 중 오류가 발생했습니다.";
+        }
+    }
+
+    private JSONArray extractWeatherItems(String weatherResponseBody) throws JSONException {
+        JSONObject responseJson = new JSONObject(weatherResponseBody);
+        JSONObject body = responseJson.getJSONObject("response").getJSONObject("body");
+        return body.getJSONObject("items").getJSONArray("item");
+    }
+
+    private String formatWeatherData(JSONArray items) {
+        StringBuilder weatherInfo = new StringBuilder("날씨 정보:\n");
+
+        for (int i = 0; i < items.length(); i++) {
+            JSONObject item = items.getJSONObject(i);
+            String category = item.getString("category");
+            String obsrValue = item.getString("obsrValue");
+
+            String categoryName = getCategoryName(category);
+            weatherInfo.append(categoryName).append(": ").append(obsrValue);
+
+            if (category.equals("VEC")) {
+                weatherInfo.append("도");
+            } else if (!category.equals("PTY") && !category.equals("RN1") && !category.equals("VEC")) {
+                weatherInfo.append(getUnit(category));
+            }
+            weatherInfo.append("\n");
         }
         return weatherInfo.toString();
     }
@@ -78,9 +80,7 @@ public class JsonExtractorImpl implements JsonExtractor {
             case "REH" -> "%";
             case "RN1" -> "mm";
             case "T1H" -> "℃";
-            case "UUU" -> "m/s";
-            case "VVV" -> "m/s";
-            case "WSD" -> "m/s";
+            case "UUU", "VVV", "WSD" -> "m/s";
             default -> "";
         };
     }
